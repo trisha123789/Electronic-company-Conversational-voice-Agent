@@ -1,0 +1,11 @@
+order_id,customer_name,product,product_category,order_date,status,estimated_delivery,tracking_note
+TC-10421,James Mitchell,TechCare Pro X15 Laptop,Laptop,08 May 2026,Dispatched,18 May 2026,Your order has left our warehouse and is on its way. You can track it at track.techcare.com/TC-10421
+TC-10422,Sarah Chen,TechCare SmartHub 4K,Home Accessory,09 May 2026,Processing,20 May 2026,Your order is being prepared at our fulfilment centre. Tracking will be available once dispatched.
+TC-10423,Amir Patel,TechCare Wireless Buds Pro,Wireless Accessory,06 May 2026,Delivered,14 May 2026,Your order was delivered on 14 May 2026. If you have not received it please check with a neighbour or your building reception.
+TC-10424,Emma Williams,TechCare Tab Pro 12,Tablet,10 May 2026,Out for Delivery,16 May 2026,Your order is out for delivery today. Please ensure someone is available to receive it.
+TC-10425,Daniel Okafor,TechCare SmartWatch S3,Wireless Accessory,07 May 2026,Delayed,22 May 2026,We are sorry for the delay. Your order has been held at the courier depot due to high demand. We have updated your delivery date to 22 May 2026.
+TC-10426,Priya Sharma,TechCare Pro X15 Laptop,Laptop,11 May 2026,Processing,21 May 2026,Your order is being prepared at our fulfilment centre. Tracking will be available once dispatched.
+TC-10427,Tom Reynolds,TechCare Tab Pro 12,Tablet,05 May 2026,Delivered,13 May 2026,Your order was delivered on 13 May 2026. If you have not received it please check with a neighbour or your building reception.
+TC-10428,Mei Lin,TechCare Wireless Buds Pro,Wireless Accessory,12 May 2026,Dispatched,19 May 2026,Your order has left our warehouse and is on its way. You can track it at track.techcare.com/TC-10428
+TC-10429,Carlos Rivera,TechCare SmartHub 4K,Home Accessory,08 May 2026,Out for Delivery,16 May 2026,Your order is out for delivery today. Please ensure someone is available to receive it.
+TC-10430,Fatima Al-Hassan,TechCare SmartWatch S3,Wireless Accessory,13 May 2026,Processing,23 May 2026,Your order is being prepared at our fulfilment centre. Tracking will be available once dispatched.

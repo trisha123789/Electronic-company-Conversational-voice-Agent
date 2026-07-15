@@ -1,0 +1,336 @@
+{
+  "agent_id": "",
+  "channel": "voice",
+  "last_modification_timestamp": 1779536587964,
+  "agent_name": "Conversation Flow Agent",
+  "response_engine": {
+    "type": "conversation-flow",
+    "version": 0,
+    "conversation_flow_id": "conversation_flow_0dbd9b08195e"
+  },
+  "language": "en-US",
+  "data_storage_setting": "everything",
+  "opt_in_signed_url": false,
+  "version": 0,
+  "assigned_tags": [],
+  "is_published": false,
+  "post_call_analysis_model": "gpt-4.1",
+  "pii_config": {
+    "mode": "post_call",
+    "categories": []
+  },
+  "handbook_config": {
+    "default_personality": true,
+    "speech_normalization": false,
+    "ai_disclosure": true
+  },
+  "voice_id": "retell-Grace",
+  "max_call_duration_ms": 3600000,
+  "interruption_sensitivity": 0.9,
+  "normalize_for_speech": false,
+  "allow_user_dtmf": true,
+  "user_dtmf_options": {},
+  "conversationFlow": {
+    "conversation_flow_id": "conversation_flow_0dbd9b08195e",
+    "version": 0,
+    "global_prompt": "You are a professional and empathetic customer support agent for TechCare Electronics.\n\nAlways address the customer by their first name once you have it. Be warm, clear and efficient — never \nrobotic or overly formal.\n\nYou have access to a knowledge base containing order statuses and product troubleshooting steps. Always retrieve from the knowledge base before responding. \n\nNever make up information.\n\n\nYou handle four types of queries only:\n- Order status\n- Return requests\n- Damaged or wrong items\n- Late delivery complaints\n\nYou never discuss billing, warranties or account changes. If asked, redirect to a human agent.\n\nWhen transferring to a human agent, always summarise the conversation context so the customer never needs \nto repeat themselves.\n\nIf at any stage the conversation is going in circles with no resolution, do not keep trying. Transfer immediately to a human agent.\n",
+    "nodes": [
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Always greet the customer warmly \"Hello thank you for calling TechCare Customer support, how can I help you today?\"\n\nAsk for their first name. \n\nOnce you have the name, say \"Perfect, thank you [name]. How can I help you today?\""
+        },
+        "name": "Welcome Node",
+        "edges": [
+          {
+            "destination_node_id": "node-1779015584508",
+            "id": "edge-1779013655171-s18e60plq",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Name collected -> Issue Router Node."
+            }
+          }
+        ],
+        "start_speaker": "agent",
+        "id": "start-node-1779013125727",
+        "type": "conversation",
+        "display_position": {
+          "x": 558,
+          "y": 102
+        }
+      },
+      {
+        "name": "End Call",
+        "id": "end-call-node-1779013125727",
+        "type": "end",
+        "display_position": {
+          "x": 798,
+          "y": 1662
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Politely end the call"
+        }
+      },
+      {
+        "name": "Issue Router Node",
+        "edges": [
+          {
+            "destination_node_id": "node-1779016058201",
+            "id": "edge-1779015584508-2qvyqtmu1",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer mentions order, delivery, tracking, shipment, dispatch -> Order Status Node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779016432481",
+            "id": "edge-1779015863055-a0dvqa0ap",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer mentions return, refund, send back, exchange -> Return Request Node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779016639556",
+            "id": "edge-1779015895014-ce3ueqhtn",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer mentions wrong item, damaged, broken, not what ordered -> Item Problem Node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779016764960",
+            "id": "edge-1779015942986-wleiywhee",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer mentions late, overdue, hasn't arrived, delay, compensation -> Late Delivery Node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779017224382",
+            "id": "edge-1779016007673-ejea5bhhm",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Unclear after one attempt -> Fallback Node"
+            }
+          }
+        ],
+        "id": "node-1779015584508",
+        "type": "conversation",
+        "display_position": {
+          "x": 1110,
+          "y": 30
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Listen carefully to what the customer needs. Do not provide any answers yet. Your only job at this stage is to understand which of the following applies:\n\n1. They want to know about an order status\n2. They want to make a return\n3. They received a wrong or damaged item\n4. They are unhappy about a late delivery\n\nDo not ask multiple questions at once. If unclear, ask: \"Could you tell me a little more about what happened?\""
+        }
+      },
+      {
+        "name": "Order Status Node",
+        "edges": [
+          {
+            "destination_node_id": "end-call-node-1779013125727",
+            "id": "edge-1779016058201-oslzlv9i1",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer satisfied, no further questions -> Closing node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779015584508",
+            "id": "edge-1779016311446-b330lf5w8",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer has another issue -> Issue Router Node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779017095209",
+            "id": "edge-1779016356101-ckc2de1hk",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Order not found in knowledge base -> say honestly you cannot find it and offer to transfer -> Escalation node"
+            }
+          }
+        ],
+        "id": "node-1779016058201",
+        "type": "conversation",
+        "display_position": {
+          "x": 6,
+          "y": 894
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Ask the customer to provide the order number if they haven't already. Order IDs follow the pattern: TC-XXXXX\n\nOnce provided, look it up in your knowledge base and share:\n - The current status\n - The estimated delivery date\n - Any relevant tracking note\n\nKeep your responses conversational and brief. If the order shows as delayed, acknowledge this with empathy before sharing the update."
+        }
+      },
+      {
+        "name": "Return Request Node",
+        "edges": [
+          {
+            "destination_node_id": "end-call-node-1779013125727",
+            "id": "edge-1779016432481-ilxodqe4k",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Within policy and resolved -> Closing Node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779017095209",
+            "id": "edge-1779016599884-ltwr1zx2o",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Outside policy, complex or disputed -> Escalation Node"
+            }
+          }
+        ],
+        "id": "node-1779016432481",
+        "type": "conversation",
+        "display_position": {
+          "x": 366,
+          "y": 894
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Acknowledge the customer's request warmly:\n\"Of course, I can help you with that.\"\n\nIf not provided, ask for their order ID. Once provided, \ncheck your knowledge base for the order and return policy details.\n\nIf the item is within the 30-day return \nwindow, provide the return instructions.\n\nIf the item is outside the return window, or if the return involves a fault or dispute, let the customer know a specialist needs \nto handle this:\n\"I want to make sure this is resolved \nproperly for you — let me connect you with a specialist who can take care of this directly.\"\n\n\nThen transfer with full context.\n\n"
+        }
+      },
+      {
+        "name": "Item Problem Node",
+        "edges": [
+          {
+            "destination_node_id": "node-1779017095209",
+            "id": "edge-1779016639556-2qqieyjq1",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "\nAlways -> Escalation Node"
+            }
+          }
+        ],
+        "id": "node-1779016639556",
+        "type": "conversation",
+        "display_position": {
+          "x": 702,
+          "y": 894
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Acknowledge the issue immediately with genuine empathy:\n\"I'm really sorry to hear that — receiving the wrong item is incredibly frustrating and we want to sort this out for you right away.\"\n\nAsk for their order ID and a brief \ndescription of the issue.\n\nDo not attempt to resolve this yourself. This always requires a human specialist.\n\nSay: \"I'm going to connect you with one of our specialists right now. I'll pass along everything we've discussed so you won't need to repeat yourself.\"\n\nThen transfer immediately.\n\n"
+        }
+      },
+      {
+        "name": "Late Delivery Node",
+        "edges": [
+          {
+            "destination_node_id": "end-call-node-1779013125727",
+            "id": "edge-1779016764960-i3uo9nav2",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer accepts the apology and discount, satisfied -> Closing Node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779017095209",
+            "id": "edge-1779016904658-sezy1iazz",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer remains frustrated or wants more -> Escalation Node"
+            }
+          }
+        ],
+        "id": "node-1779016764960",
+        "type": "conversation",
+        "display_position": {
+          "x": 1062,
+          "y": 894
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Acknowledge the delay sincerely before anything else:\n\"I completely understand your frustration and I'm sorry for the inconvenience — let me look into this for you right now.\"\n\nAsk for their order ID if not already given. Look it up in \nthe knowledge base and share the current status and updated delivery date.\n\nThen offer a goodwill gesture:\n\"As an apology for the delay, I'd like \nto offer you a 10% discount on your \nnext order. Your code is SORRY10.\"\n\n\nIf the customer remains frustrated, \nwants further compensation, or escalates emotionally, transfer immediately:\n\"I understand this isn't good enough \nand I want to make sure someone with more authority can help you properly. I'll pass along your order number and everything that we discussed. Let me connect you now.\"\n\n"
+        }
+      },
+      {
+        "custom_sip_headers": {},
+        "transfer_destination": {
+          "type": "predefined",
+          "number": "+18563630633"
+        },
+        "edge": {
+          "id": "edge-1779017095209-s55dzzmpd",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Transfer failed"
+          }
+        },
+        "name": "Escalation Node",
+        "ignore_e164_validation": false,
+        "id": "node-1779017095209",
+        "transfer_option": {
+          "opt_out_human_detection": false,
+          "enable_bridge_audio_cue": false,
+          "on_hold_music": "uplifting_beats",
+          "type": "warm_transfer",
+          "agent_detection_timeout_ms": 30000,
+          "show_transferee_as_caller": false
+        },
+        "type": "transfer_call",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 798,
+          "y": 1470
+        }
+      },
+      {
+        "name": "Fallback Node",
+        "edges": [
+          {
+            "destination_node_id": "node-1779015584508",
+            "id": "edge-1779017224382-sbvenjoyx",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Customer rephrases clearly -> Issue Router Node"
+            }
+          },
+          {
+            "destination_node_id": "node-1779017095209",
+            "id": "edge-1779017320694-h7vwc752x",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Second consecutive fallback -> Escalation Node"
+            }
+          }
+        ],
+        "id": "node-1779017224382",
+        "type": "conversation",
+        "display_position": {
+          "x": 1398,
+          "y": 894
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Ask the customer politely to rephrase their request. After two attemtps, if you are still unable to understand, transfer to a human agent."
+        }
+      }
+    ],
+    "start_node_id": "start-node-1779013125727",
+    "start_speaker": "agent",
+    "model_choice": {
+      "type": "cascading",
+      "model": "gpt-4.1"
+    },
+    "tool_call_strict_mode": true,
+    "knowledge_base_ids": [],
+    "kb_config": {
+      "top_k": 3,
+      "filter_score": 0.6
+    },
+    "begin_tag_display_position": {
+      "x": 6,
+      "y": 198
+    },
+    "is_published": false,
+    "is_transfer_cf": false
+  }
+}
